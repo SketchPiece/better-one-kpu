@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Better KPU",
+  "description": "The extension to improve the KPU experience",
+  "version": "0.1",
+  "icons": {
+    "16": "images/better-kpu-16x16.png",
+    "48": "images/better-kpu-48x48.png",
+    "128": "images/better-kpu-128x128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "images/better-kpu-16x16.png",
+      "48": "images/better-kpu-48x48.png",
+      "128": "images/better-kpu-128x128.png"
+    }
+  },
+  "permissions": ["webRequest"],
+  "host_permissions": ["*://*/*"],
+  "content_scripts": [
+    {
+      "js": ["src/content.tsx"],
+      "matches": ["https://one.kpu.ca/*"]
+    }
+  ]
+}
