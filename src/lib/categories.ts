@@ -45,4 +45,6 @@ const categories = [
   { name: "Transit", icon: BusFront, items: 15 },
 ];
 
+export type CategoryItem = (typeof categories)[number];
+
 export default categories;

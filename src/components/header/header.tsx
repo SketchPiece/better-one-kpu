@@ -15,7 +15,6 @@ export default function Header({
   searchText,
   onSearchTextChange,
 }: HeaderProps) {
-  const session = false;
   const { data: userProfile, isLoading } = useQuery({
     queryKey: ["profile"],
     queryFn: () => kpuApi.getUserProfile(),
@@ -23,6 +22,15 @@ export default function Header({
 
   const handleSignIn = () => {
     window.location.href = "/?login=true";
+  };
+
+  const handleSignOut = () => {
+    chrome.runtime.sendMessage(
+      {
+        type: "SIGN_OUT",
+      },
+      () => (window.location.href = "/"),
+    );
   };
 
   return (
@@ -50,6 +58,7 @@ export default function Header({
               username={userProfile.username}
               email={userProfile.email}
               initials={userProfile.initials}
+              onSignOut={handleSignOut}
             />
           </>
         ) : (

@@ -15,12 +15,16 @@
       "128": "images/better-kpu-128x128.png"
     }
   },
-  "permissions": ["webRequest"],
+  "permissions": ["webRequest", "cookies"],
   "host_permissions": ["*://*/*"],
   "content_scripts": [
     {
       "js": ["src/content.tsx"],
       "matches": ["https://one.kpu.ca/*"]
     }
-  ]
+  ],
+  "background": {
+    "service_worker": "src/background.ts",
+    "type": "module"
+  }
 }

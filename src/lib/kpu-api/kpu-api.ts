@@ -48,15 +48,54 @@ function mapUserProfile(userData: UserProfileData): UserProfile {
   };
 }
 
+function mapTileToService(rawTile: unknown) {
+  const parseResult = tileSchema.safeParse(rawTile);
+  if (!parseResult.success) return null;
+  const tile = parseResult.data;
+  return refineService({
+    id: tile.task.taskId,
+    title: tile.title,
+    image: tile.task.tabletHighResolutionImageCdnUrl,
+    uniqueKey: tile.uniqueKey,
+  });
+}
+
 const kpuApi = {
-  getServices: async (searchText?: string) => {
+  getAllServices: async ({ pageNumber = 0 }) => {
+    const rawCollectionData = await fetch(`/tasks`, {
+      method: "POST",
+      body: JSON.stringify({
+        pageNumber,
+        mobile: false,
+        mobileOnly: false,
+        taskCollectionUniqueKey: "_popular_",
+        // terms: searchText ? searchText : undefined,
+      }),
+      ...commonOptions,
+    }).then((res) => res.json());
+    console.log(rawCollectionData);
+    const rawCollection = rawCollectionData.taskCollections.find(
+      (item: { uniqueKey: string }) => item.uniqueKey === "_popular_",
+    );
+
+    const rawTiles = rawCollection?.tiles;
+
+    const services: Service[] = rawTiles?.map(mapTileToService);
+
+    return {
+      data: services,
+      hasNextPage: rawCollection.hasMore,
+      page: pageNumber,
+    };
+  },
+  getQuickServices: async (searchText?: string) => {
     const rawCollectionData = await fetch(`/tasks`, {
       method: "POST",
       body: JSON.stringify({
         pageNumber: 0,
         mobile: false,
         mobileOnly: false,
-        taskCollectionUniqueKey: searchText ? undefined : "_popular_",
+        // taskCollectionUniqueKey: searchText ? undefined : "_popular_",
         terms: searchText ? searchText : undefined,
       }),
       ...commonOptions,
@@ -64,43 +103,30 @@ const kpuApi = {
 
     const rawFeaturedTiles = rawCollectionData.taskCollections.find(
       (item: { uniqueKey: string }) => item.uniqueKey === "_featured_",
-    ).tiles;
+    )?.tiles;
+    const rawFavoritesTiles = rawCollectionData.taskCollections.find(
+      (item: { uniqueKey: string }) => item.uniqueKey === "_favorite_",
+    )?.tiles;
+    const rawRecentTiles = rawCollectionData.taskCollections.find(
+      (item: { uniqueKey: string }) => item.uniqueKey === "_recentlyUsed_",
+    )?.tiles;
     const rawOtherTiles = rawCollectionData.taskCollections.find(
       (item: { uniqueKey: string }) => item.uniqueKey === "_popular_",
-    ).tiles;
+    )?.tiles;
 
-    const featuredServices: Service[] = rawFeaturedTiles.map(
-      (rawTile: unknown, index: number) => {
-        if (index === 0) console.log(rawTile);
-        const parseResult = tileSchema.safeParse(rawTile);
-        if (!parseResult.success) return null;
-        const tile = parseResult.data;
-        return refineService({
-          id: tile.task.taskId,
-          title: tile.title,
-          image: tile.task.tabletHighResolutionImageCdnUrl,
-          uniqueKey: tile.uniqueKey,
-        });
-      },
-    );
+    const featuredServices: Service[] = rawFeaturedTiles?.map(mapTileToService);
 
-    const otherServices: Service[] = rawOtherTiles.map(
-      (rawTile: unknown, index: number) => {
-        if (index === 0) console.log(rawTile);
-        const parseResult = tileSchema.safeParse(rawTile);
-        if (!parseResult.success) return null;
-        const tile = parseResult.data;
-        return refineService({
-          id: tile.task.taskId,
-          title: tile.title,
-          image: tile.task.tabletHighResolutionImageCdnUrl,
-          uniqueKey: tile.uniqueKey,
-        });
-      },
-    );
+    const favoritesServices: Service[] =
+      rawFavoritesTiles?.map(mapTileToService);
+
+    const recentServices: Service[] = rawRecentTiles?.map(mapTileToService);
+
+    const otherServices: Service[] = rawOtherTiles?.map(mapTileToService);
 
     return {
-      featured: featuredServices,
+      essentials: featuredServices,
+      favorites: favoritesServices,
+      recent: recentServices,
       other: otherServices,
     };
   },
@@ -109,7 +135,6 @@ const kpuApi = {
       method: "GET",
       ...commonOptions,
     }).then((res) => res.json());
-    console.log(rawProfileData);
     const parsedUserProfile = userProfileDataSchema.safeParse(rawProfileData);
     if (!parsedUserProfile.success) return null;
     const userProfile = mapUserProfile(parsedUserProfile.data);
