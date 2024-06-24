@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
 interface GreetingProps {
-  name: string;
+  name?: string;
 }
 
-function defineGreeting(name: string): string {
+function defineGreeting(name?: string): string {
+  if (!name) return "Discover Services";
   const hours = new Date().getHours();
   let greet;
 

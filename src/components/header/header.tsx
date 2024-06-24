@@ -3,22 +3,21 @@ import { Icons } from "../icons";
 import { Button } from "../ui/button";
 import SearchInput from "./search-input";
 import UserDropdownMenu from "./user-dropdown-menu";
-import { useQuery } from "@tanstack/react-query";
-import kpuApi from "@/lib/kpu-api";
+import { useUserProfileQuery } from "@/hooks/api/use-user-profile-query";
+import { useNotificationsQuery } from "@/hooks/api/use-notifications-query";
+import NotificationsPopover from "../notification-popover";
 
 interface HeaderProps {
-  searchText?: string;
-  onSearchTextChange?: (searchText: string) => void;
+  searchQuery?: string;
+  onSearchQueryChange?: (searchQuery: string) => void;
 }
 
 export default function Header({
-  searchText,
-  onSearchTextChange,
+  searchQuery,
+  onSearchQueryChange,
 }: HeaderProps) {
-  const { data: userProfile, isLoading } = useQuery({
-    queryKey: ["profile"],
-    queryFn: () => kpuApi.getUserProfile(),
-  });
+  const { data: notifications } = useNotificationsQuery();
+  const { data: userProfile, isLoading } = useUserProfileQuery();
 
   const handleSignIn = () => {
     window.location.href = "/?login=true";
@@ -44,16 +43,14 @@ export default function Header({
         </a>
       </div>
       <SearchInput
-        value={searchText}
-        onChange={(e) => onSearchTextChange?.(e.target.value)}
+        value={searchQuery}
+        onChange={(e) => onSearchQueryChange?.(e.target.value)}
       />
 
       <div className="flex flex-1 items-center justify-end gap-4">
         {userProfile && !isLoading ? (
           <>
-            <Button variant="ghost" size="icon">
-              <Icons.bellDot className="h-6 w-6" />
-            </Button>
+            <NotificationsPopover notifications={notifications} />
             <UserDropdownMenu
               username={userProfile.username}
               email={userProfile.email}

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Better KPU",
   "description": "The extension to improve the KPU experience",
-  "version": "0.1",
+  "version": "0.8",
   "icons": {
     "16": "images/better-kpu-16x16.png",
     "48": "images/better-kpu-48x48.png",

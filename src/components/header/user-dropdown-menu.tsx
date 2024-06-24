@@ -1,3 +1,4 @@
+import { usePreferences } from "@/hooks/use-preferences";
 import { Icons } from "../icons";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import {
@@ -15,6 +16,20 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { QuickFiltersValue } from "../home/quick-filters";
+import SimpleTooltip from "../ui/simple-tooltip";
+import { useClipboard } from "@mantine/hooks";
+
+function includeValue<T extends string>(array: T[], value: T) {
+  if (array.includes(value)) {
+    return [...array];
+  }
+  return [...array, value];
+}
+
+function excludeValue<T extends string>(array: T[], value: T) {
+  return array.filter((item) => item !== value);
+}
 
 interface UserDropdownMenuProps {
   initials: string;
@@ -29,6 +44,25 @@ export default function UserDropdownMenu({
   email,
   onSignOut,
 }: UserDropdownMenuProps) {
+  const { preferences, updatePreference } = usePreferences();
+  const clipboard = useClipboard({ timeout: 2000 });
+
+  const handleRoleCheckboxChange = (
+    role: "student" | "employee",
+    checked: boolean,
+  ) => {
+    updatePreference(
+      "roles",
+      checked
+        ? includeValue(preferences.roles, role)
+        : excludeValue(preferences.roles, role),
+    );
+  };
+
+  const copyEmailContent = clipboard.copied
+    ? "Copied to your clipboard"
+    : "Click to copy email address";
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -41,8 +75,17 @@ export default function UserDropdownMenu({
       <DropdownMenuContent align="end">
         <DropdownMenuLabel className="flex flex-col">
           <span className="font-medium">{username}</span>
-          <span className="text-sm">{email}</span>
+          <SimpleTooltip
+            content={copyEmailContent}
+            side="bottom"
+            open={clipboard.copied ? true : undefined}
+          >
+            <button onClick={() => clipboard.copy(email)} className="text-sm">
+              {email}
+            </button>
+          </SimpleTooltip>
         </DropdownMenuLabel>
+        <DropdownMenuSeparator />
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
             <Icons.eye className="mr-2" />
@@ -55,36 +98,24 @@ export default function UserDropdownMenu({
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuRadioGroup
-                value="essentials"
-                onValueChange={(value) => console.log(value)}
+                value={preferences.defaultView}
+                onValueChange={(value) =>
+                  updatePreference("defaultView", value as QuickFiltersValue)
+                }
               >
                 <DropdownMenuRadioItem value="essentials">
                   <Icons.circleCheck className="mr-2" />
                   Essentials
                 </DropdownMenuRadioItem>
                 <DropdownMenuRadioItem value="favorites">
-                  <Icons.star className="mr-2" />
+                  <Icons.starOutline className="mr-2" />
                   Favorites
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="popular">
+                <DropdownMenuRadioItem value="recent">
                   <Icons.history className="mr-2" />
-                  Popular
+                  Recent
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
-              {/* <DropdownMenuCheckboxItem
-                checked
-                onCheckedChange={(checked) => console.log(checked)}
-                onSelect={(e) => e.preventDefault()}
-              >
-                <Icons.graduationCap className="mr-2" /> Student
-              </DropdownMenuCheckboxItem>
-              <DropdownMenuCheckboxItem
-                checked
-                onCheckedChange={(checked) => console.log(checked)}
-                onSelect={(e) => e.preventDefault()}
-              >
-                <Icons.presentation className="mr-2" /> Teacher
-              </DropdownMenuCheckboxItem> */}
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
@@ -100,18 +131,22 @@ export default function UserDropdownMenu({
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuCheckboxItem
-                checked
-                onCheckedChange={(checked) => console.log(checked)}
+                checked={preferences.roles.includes("student")}
+                onCheckedChange={(checked) =>
+                  handleRoleCheckboxChange("student", checked)
+                }
                 onSelect={(e) => e.preventDefault()}
               >
                 <Icons.graduationCap className="mr-2" /> Student
               </DropdownMenuCheckboxItem>
               <DropdownMenuCheckboxItem
-                checked
-                onCheckedChange={(checked) => console.log(checked)}
+                checked={preferences.roles.includes("employee")}
+                onCheckedChange={(checked) =>
+                  handleRoleCheckboxChange("employee", checked)
+                }
                 onSelect={(e) => e.preventDefault()}
               >
-                <Icons.presentation className="mr-2" /> Teacher
+                <Icons.briefcaseBusiness className="mr-2" /> Employee
               </DropdownMenuCheckboxItem>
             </DropdownMenuSubContent>
           </DropdownMenuPortal>

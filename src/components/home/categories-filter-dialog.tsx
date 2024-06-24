@@ -1,6 +1,6 @@
-import categories, { CategoryItem } from "@/lib/categories";
-import { Icons } from "./icons";
-import { Button } from "./ui/button";
+import categories, { CategoryItem, CategoryValue } from "@/lib/categories";
+import { Icons } from "../icons";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,8 +8,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
-import { ComponentProps, useMemo, useState } from "react";
+} from "../ui/dialog";
+import React, { ComponentProps, useEffect, useState } from "react";
+import { Nullable } from "@/lib/types";
 
 interface CategoryButtonProps extends ComponentProps<"button"> {
   name: string;
@@ -32,14 +33,36 @@ function CategoryButton({ name, icon, items, ...props }: CategoryButtonProps) {
   );
 }
 
-export default function FiltersDialog() {
+interface CategoryFiltersDialogProps {
+  value?: Nullable<CategoryValue>;
+  onChange?: (value: Nullable<CategoryValue>) => void;
+}
+
+export default function CategoriesFilterDialog({
+  onChange,
+  value,
+}: CategoryFiltersDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<CategoryItem>();
 
   const handleCategorySelect = (category: CategoryItem) => {
     setSelectedCategory(category);
     setIsOpen(false);
+    onChange?.(category.value);
   };
+
+  const handleCategoryClear = (e: React.MouseEvent<HTMLOrSVGElement>) => {
+    e.stopPropagation();
+    setSelectedCategory(undefined);
+    onChange?.(null);
+  };
+
+  useEffect(() => {
+    if (value !== selectedCategory && value !== undefined) {
+      if (value === null) setSelectedCategory(undefined);
+      else setSelectedCategory(categories.find((c) => c.value === value));
+    }
+  }, [value, selectedCategory]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -49,10 +72,7 @@ export default function FiltersDialog() {
             <selectedCategory.icon className="mr-2" /> {selectedCategory.name}
             <Icons.darkClose
               className="ml-2 h-5 w-5 hover:opacity-80"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedCategory(undefined);
-              }}
+              onClick={handleCategoryClear}
             />
           </Button>
         ) : (

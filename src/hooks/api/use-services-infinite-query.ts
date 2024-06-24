@@ -1,11 +1,32 @@
+import { CategoryValue } from "@/lib/categories";
 import kpuApi from "@/lib/kpu-api";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { usePreferences } from "../use-preferences";
 
-export function useServicesInfiniteQuery() {
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ["other-services"],
+interface ServicesInfiniteQueryProps {
+  searchQuery?: string;
+  category?: CategoryValue | null;
+}
+
+export function useServicesInfiniteQuery({
+  searchQuery,
+  category,
+}: ServicesInfiniteQueryProps) {
+  const { preferences } = usePreferences();
+  const { data, fetchNextPage, hasNextPage, ...rest } = useInfiniteQuery({
+    queryKey: [
+      "services",
+      searchQuery,
+      category,
+      preferences.roles.sort().join(","),
+    ],
     queryFn: ({ pageParam }) =>
-      kpuApi.getAllServices({ pageNumber: pageParam }),
+      kpuApi.getAllServices({
+        pageNumber: pageParam,
+        searchQuery,
+        category,
+        roles: preferences.roles,
+      }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) =>
       lastPage.hasNextPage ? lastPage.page + 1 : null,
@@ -17,5 +38,6 @@ export function useServicesInfiniteQuery() {
     data: flatPagesData,
     fetchNextPage,
     hasNextPage,
+    ...rest,
   };
 }
