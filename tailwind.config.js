@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["class"],
+  darkMode: ["selector"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -34,12 +34,15 @@ export default {
       },
       colors: {
         primary: "#862533",
+        dark: {
+          background: "#111111",
+          accent: "#F0F0F0",
+        },
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
+        inter: ["Inter", "sans-serif"],
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
-
+};

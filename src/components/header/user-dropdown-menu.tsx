@@ -66,7 +66,7 @@ export default function UserDropdownMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+        <button className="dark:ring-offset-dark-background rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
           <Avatar>
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
@@ -111,9 +111,9 @@ export default function UserDropdownMenu({
                   <Icons.starOutline className="mr-2" />
                   Favorites
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="recent">
+                <DropdownMenuRadioItem value="recents">
                   <Icons.history className="mr-2" />
-                  Recent
+                  Recents
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
             </DropdownMenuSubContent>
@@ -151,22 +151,24 @@ export default function UserDropdownMenu({
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
-        <DropdownMenuItem>
-          <Icons.feedback className="mr-2" />
-          <span>Send Feedback</span>
+        <DropdownMenuItem asChild>
+          <a href="https://www.kpu.ca/it/feedback-onekpu" target="_blank">
+            <Icons.feedback className="mr-2" />
+            <span>Send Feedback</span>
+          </a>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={onSignOut}>
           <Icons.logout className="mr-2" /> Logout
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuLabel className="flex justify-around">
-          <a href="#">
+          <a href="https://www.facebook.com/kwantlenU" target="_blank">
             <Icons.facebook className="h-7 w-7 text-[#747474] hover:text-black" />
           </a>
-          <a href="#">
+          <a href="https://x.com/kwantlenu" target="_blank">
             <Icons.x className="h-7 w-7 text-[#747474] hover:text-black" />
           </a>
-          <a href="#">
+          <a href="https://www.instagram.com/kwantlenu" target="_blank">
             <Icons.instagram className="h-7 w-7 text-[#747474] hover:text-black" />
           </a>
         </DropdownMenuLabel>

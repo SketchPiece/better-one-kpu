@@ -19,7 +19,7 @@ function NotificationCard({ title, content }: NotificationCardProps) {
         <NotificationContentRenderer content={content} showMore={isShowMore} />
       </div>
       <button
-        className="text-sm text-primary hover:text-primary/80 focus:outline-none"
+        className="dark:ring-offset-dark-background text-sm text-primary hover:text-primary/80 focus:outline-none"
         onClick={() => setIsShowMore(!isShowMore)}
       >
         {isShowMore ? "Show less" : "Show more"}

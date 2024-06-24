@@ -6,6 +6,7 @@ import UserDropdownMenu from "./user-dropdown-menu";
 import { useUserProfileQuery } from "@/hooks/api/use-user-profile-query";
 import { useNotificationsQuery } from "@/hooks/api/use-notifications-query";
 import NotificationsPopover from "../notification-popover";
+import OneKpuLogo from "../one-kpu-logo";
 
 interface HeaderProps {
   searchQuery?: string;
@@ -39,7 +40,7 @@ export default function Header({
           href="#"
           className="block w-fit rounded-full p-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
-          <img src={chrome.runtime.getURL(oneKpuLogo)} alt="One KPU Logo" />
+          <OneKpuLogo className="dark:text-dark-accent text-white" />
         </a>
       </div>
       <SearchInput

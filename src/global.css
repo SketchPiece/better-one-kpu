@@ -4,6 +4,6 @@
 
 @layer base {
   html {
-    @apply font-inter;
+    @apply dark:bg-dark-background dark:text-dark-accent font-inter;
   }
 }

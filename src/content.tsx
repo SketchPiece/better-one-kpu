@@ -14,6 +14,7 @@ document
 
 document.body.innerHTML = injectedBody;
 const root = document.getElementById("root")!;
+// document.documentElement.classList.add("dark");
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>

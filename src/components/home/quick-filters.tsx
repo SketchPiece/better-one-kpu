@@ -50,9 +50,10 @@ export default function QuickFilters({
         type="button"
         onClick={() => handleClick("essentials")}
         className={cn(
-          "inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-          selectedValue === "essentials" &&
-            "border-primary bg-primary text-white",
+          "dark:ring-offset-dark-background inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50",
+          selectedValue === "essentials"
+            ? "border-primary bg-primary text-white"
+            : "hover:bg-[#F5F5F5] dark:border-[#3D3D3D] dark:hover:bg-[#1E1E1E]",
         )}
       >
         <Icons.circleCheck className="mr-2" />
@@ -64,9 +65,10 @@ export default function QuickFilters({
           disabled={!authorized}
           onClick={() => authorized && handleClick("favorites")}
           className={cn(
-            "inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50",
-            selectedValue === "favorites" &&
-              "border-primary bg-primary text-white",
+            "dark:ring-offset-dark-background inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50",
+            selectedValue === "favorites"
+              ? "border-primary bg-primary text-white"
+              : "hover:bg-[#F5F5F5] dark:border-[#3D3D3D] dark:hover:bg-[#1E1E1E]",
           )}
         >
           <Icons.starOutline className="mr-2" />
@@ -79,9 +81,10 @@ export default function QuickFilters({
           disabled={!authorized}
           onClick={() => authorized && handleClick("recents")}
           className={cn(
-            "inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50",
-            selectedValue === "recents" &&
-              "border-primary bg-primary text-white",
+            "dark:ring-offset-dark-background inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50",
+            selectedValue === "recents"
+              ? "border-primary bg-primary text-white"
+              : "hover:bg-[#F5F5F5] dark:border-[#3D3D3D] dark:hover:bg-[#1E1E1E]",
           )}
         >
           <Icons.history className="mr-2" />

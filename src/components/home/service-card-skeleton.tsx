@@ -13,7 +13,7 @@ export default function ServiceCardSkeleton({
           key={index}
           className="flex items-center justify-center gap-4 rounded-xl px-8 py-6"
         >
-          <Skeleton className="h-20 w-20 rounded-full border border-[#F0F0F0]" />
+          <Skeleton className="h-20 w-20 rounded-full border border-[#F0F0F0] dark:border-[#2E2E2E]" />
           <div className="flex flex-1 flex-col">
             <Skeleton className="h-6 w-full max-w-36" />
             <Skeleton className="mt-1 h-4 w-full" />
