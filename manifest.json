@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Better KPU",
   "description": "The extension to improve the KPU experience",
-  "version": "0.9",
+  "version": "0.9.1",
   "icons": {
     "16": "images/better-kpu-16x16.png",
     "48": "images/better-kpu-48x48.png",
@@ -21,6 +21,46 @@
     {
       "js": ["src/content.tsx"],
       "css": ["hide.css"],
+      "matches": ["https://one.kpu.ca/*"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "service-images/courses-website.png",
+        "service-images/library.png",
+        "service-images/employee-email.png",
+        "service-images/student-email.png",
+        "service-images/my-action-plan.png",
+        "service-images/employee-dashboard.png",
+        "service-images/register.png",
+        "service-images/maintenance.png",
+        "service-images/banner-navigator.png",
+        "service-images/self-service.png",
+        "service-images/upass.png",
+        "service-images/papercut.png",
+        "service-images/onedrive.png",
+        "service-images/taleo.png",
+        "service-images/student-profile.png",
+        "service-images/aid.png",
+        "service-images/kpq.png",
+        "service-images/rights.png",
+        "service-images/printing.png",
+        "service-images/compass.png",
+        "service-images/fees-and-costs.png",
+        "service-images/book-room.png",
+        "service-images/deadlines.png",
+        "service-images/schedule.png",
+        "service-images/it-support.png",
+        "service-images/social-media.png",
+        "service-images/food.png",
+        "service-images/pay.png",
+        "service-images/advisor-student-profile.png",
+        "service-images/fast.png",
+        "service-images/study-abroad.png",
+        "service-images/zoom.png",
+        "service-images/library-account.png"
+      ],
       "matches": ["https://one.kpu.ca/*"]
     }
   ],
