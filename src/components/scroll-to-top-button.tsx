@@ -36,7 +36,7 @@ function ScrollToTopButton() {
         {isVisible && (
           <motion.button
             onClick={scrollToTop}
-            className="rounded-full border bg-white p-2.5 text-black shadow-lg transition-colors hover:bg-gray-100"
+            className="rounded-full border bg-white p-2.5 text-black shadow-lg transition-colors hover:bg-gray-100 dark:border-[#2E2E2E] dark:bg-dark-background dark:text-dark-accent dark:hover:bg-[#2E2E2E]"
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}

@@ -66,7 +66,7 @@ export default function UserDropdownMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="dark:ring-offset-dark-background rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+        <button className="rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:ring-offset-dark-background">
           <Avatar>
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
@@ -151,6 +151,42 @@ export default function UserDropdownMenu({
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <Icons.appearance className="mr-2" />
+            <span>Appearance</span>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              <DropdownMenuLabel className="px-3 py-2.5 font-medium">
+                Select Appearance
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuRadioGroup
+                value={preferences.appearance}
+                onValueChange={(value) =>
+                  updatePreference(
+                    "appearance",
+                    value as "dark" | "light" | "system",
+                  )
+                }
+              >
+                <DropdownMenuRadioItem value="system">
+                  <Icons.system className="mr-2" />
+                  System
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="light">
+                  <Icons.sun className="mr-2" />
+                  Light
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="dark">
+                  <Icons.moon className="mr-2" />
+                  Dark
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
         <DropdownMenuItem asChild>
           <a href="https://www.kpu.ca/it/feedback-onekpu" target="_blank">
             <Icons.feedback className="mr-2" />
@@ -163,13 +199,13 @@ export default function UserDropdownMenu({
         <DropdownMenuSeparator />
         <DropdownMenuLabel className="flex justify-around">
           <a href="https://www.facebook.com/kwantlenU" target="_blank">
-            <Icons.facebook className="h-7 w-7 text-[#747474] hover:text-black" />
+            <Icons.facebook className="h-7 w-7 text-[#747474] hover:text-black dark:text-dark-accent/80 dark:hover:text-dark-accent" />
           </a>
           <a href="https://x.com/kwantlenu" target="_blank">
-            <Icons.x className="h-7 w-7 text-[#747474] hover:text-black" />
+            <Icons.x className="h-7 w-7 text-[#747474] hover:text-black dark:text-dark-accent/80 dark:hover:text-dark-accent" />
           </a>
           <a href="https://www.instagram.com/kwantlenu" target="_blank">
-            <Icons.instagram className="h-7 w-7 text-[#747474] hover:text-black" />
+            <Icons.instagram className="h-7 w-7 text-[#747474] hover:text-black dark:text-dark-accent/80 dark:hover:text-dark-accent" />
           </a>
         </DropdownMenuLabel>
       </DropdownMenuContent>

@@ -10,8 +10,10 @@ import useFilterState from "@/components/home/hooks/use-filter-state";
 import { useUserProfileQuery } from "@/hooks/api/use-user-profile-query";
 import { useDebouncedValue } from "@mantine/hooks";
 import ScrollToTopButton from "@/components/scroll-to-top-button";
+import { useColorAppearance } from "@/hooks/use-color-appearance";
 
 export default function Home() {
+  useColorAppearance();
   const { data: userProfile } = useUserProfileQuery();
   const {
     preferences: { defaultView },

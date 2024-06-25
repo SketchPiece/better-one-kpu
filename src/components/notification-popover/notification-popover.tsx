@@ -13,13 +13,13 @@ interface NotificationCardProps {
 function NotificationCard({ title, content }: NotificationCardProps) {
   const [isShowMore, setIsShowMore] = useState(false);
   return (
-    <div className="m-2 w-fit gap-4 rounded-xl p-2 hover:bg-[#F9F9F9]">
+    <div className="m-2 w-fit gap-4 rounded-xl p-2 transition-all hover:bg-[#F9F9F9] dark:hover:bg-[#2E2E2E]">
       <h5 className="text-nowrap font-medium leading-none">{title}</h5>
       <div className="mt-2">
         <NotificationContentRenderer content={content} showMore={isShowMore} />
       </div>
       <button
-        className="dark:ring-offset-dark-background text-sm text-primary hover:text-primary/80 focus:outline-none"
+        className="text-sm text-primary hover:text-primary/80 focus:outline-none dark:ring-offset-dark-background"
         onClick={() => setIsShowMore(!isShowMore)}
       >
         {isShowMore ? "Show less" : "Show more"}
@@ -56,7 +56,7 @@ export default function NotificationsPopover({
                 Notifications
               </h4>
             </div>
-            <div className="h-px w-full bg-slate-100"></div>
+            <div className="h-px w-full bg-slate-100 dark:bg-[#2E2E2E]"></div>
             <div className="max-h-[80vh] overflow-y-auto">
               <div className="my-2">
                 {notifications &&

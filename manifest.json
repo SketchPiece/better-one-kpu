@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Better KPU",
   "description": "The extension to improve the KPU experience",
-  "version": "0.8",
+  "version": "0.9",
   "icons": {
     "16": "images/better-kpu-16x16.png",
     "48": "images/better-kpu-48x48.png",
@@ -20,6 +20,7 @@
   "content_scripts": [
     {
       "js": ["src/content.tsx"],
+      "css": ["hide.css"],
       "matches": ["https://one.kpu.ca/*"]
     }
   ],

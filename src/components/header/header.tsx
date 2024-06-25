@@ -1,4 +1,3 @@
-import oneKpuLogo from "@/assets/one-kpu-logo.svg";
 import { Icons } from "../icons";
 import { Button } from "../ui/button";
 import SearchInput from "./search-input";
@@ -40,7 +39,7 @@ export default function Header({
           href="#"
           className="block w-fit rounded-full p-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
-          <OneKpuLogo className="dark:text-dark-accent text-white" />
+          <OneKpuLogo />
         </a>
       </div>
       <SearchInput

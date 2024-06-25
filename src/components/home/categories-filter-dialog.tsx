@@ -21,7 +21,7 @@ interface CategoryButtonProps extends ComponentProps<"button"> {
 function CategoryButton({ name, icon, items, ...props }: CategoryButtonProps) {
   return (
     <button
-      className="flex items-center rounded-lg p-2 transition-all hover:bg-[#F9F9F9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      className="flex items-center rounded-lg p-2 transition-all hover:bg-[#F9F9F9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:hover:bg-[#2E2E2E]"
       {...props}
     >
       <span className="flex items-center gap-2">

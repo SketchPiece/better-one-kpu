@@ -8,6 +8,7 @@ export default function OneKpuLogo(props: LucideProps) {
       height="39"
       fill="none"
       viewBox="0 0 148 39"
+      className="dark:text-dark-accent text-black"
       {...props}
     >
       <g clipPath="url(#clip0_277_251)">

@@ -1,0 +1,37 @@
+body {
+  visibility: hidden;
+  position: relative;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50px; /* Decrease the width */
+  height: 50px; /* Decrease the height */
+  margin: -25px 0 0 -25px; /* Offset to center the spinner */
+  border: 5px solid #f3f4f6; /* Light grey */
+  border-top: 5px solid #862533; /* Primary color */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: block;
+  visibility: visible; /* Ensure the spinner is visible */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+body.show {
+  visibility: visible;
+}
+
+body.show::after {
+  display: none;
+}
