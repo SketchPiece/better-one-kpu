@@ -5,23 +5,25 @@ import ServiceCard from "./service-card";
 import { resolveImageUrl } from "@/lib/utils";
 import { Nullable } from "@/lib/types";
 import { useFavoriteMutation } from "@/hooks/api/use-favorite-mutation";
+import { Service } from "@/lib/kpu-api/types";
 
 interface QuickServicesProps {
-  filter: Nullable<QuickFiltersValue>;
+  services?: Service[];
+  loading?: boolean;
 }
 
-export default function QuickServices({ filter }: QuickServicesProps) {
-  const { isLoading, data } = useQuickServices({
-    quickFilter: filter || undefined,
-  });
+export default function QuickServices({
+  services,
+  loading,
+}: QuickServicesProps) {
   const { mutate: updateFavorite } = useFavoriteMutation();
 
   return (
     <div className="my-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-      {isLoading ? (
+      {loading ? (
         <ServiceCardSkeleton amount={8} />
       ) : (
-        data?.map(
+        services?.map(
           ({ id, title, description, image, uniqueKey, uid, favorite }) => (
             <ServiceCard
               key={uniqueKey}

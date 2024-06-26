@@ -35,6 +35,7 @@ interface UserDropdownMenuProps {
   initials: string;
   username: string;
   email: string;
+  onDefaultViewChange?: (value: QuickFiltersValue) => void;
   onSignOut?: () => void;
 }
 
@@ -42,6 +43,7 @@ export default function UserDropdownMenu({
   initials,
   username,
   email,
+  onDefaultViewChange,
   onSignOut,
 }: UserDropdownMenuProps) {
   const { preferences, updatePreference } = usePreferences();
@@ -59,6 +61,11 @@ export default function UserDropdownMenu({
     );
   };
 
+  const handleDefaultViewChange = (value: QuickFiltersValue) => {
+    updatePreference("defaultView", value as QuickFiltersValue);
+    onDefaultViewChange?.(value);
+  };
+
   const copyEmailContent = clipboard.copied
     ? "Copied to your clipboard"
     : "Click to copy email address";
@@ -72,7 +79,15 @@ export default function UserDropdownMenu({
           </Avatar>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent
+        align="end"
+        collisionPadding={{
+          top: 10,
+          right: 10,
+          bottom: 5,
+          left: 6,
+        }}
+      >
         <DropdownMenuLabel className="flex flex-col">
           <span className="font-medium">{username}</span>
           <SimpleTooltip
@@ -100,7 +115,7 @@ export default function UserDropdownMenu({
               <DropdownMenuRadioGroup
                 value={preferences.defaultView}
                 onValueChange={(value) =>
-                  updatePreference("defaultView", value as QuickFiltersValue)
+                  handleDefaultViewChange(value as QuickFiltersValue)
                 }
               >
                 <DropdownMenuRadioItem value="essentials">

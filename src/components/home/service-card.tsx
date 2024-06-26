@@ -34,7 +34,8 @@ export default function ServiceCard({
 
   return (
     <a
-      className="dark:ring-offset-dark-background group relative flex items-center justify-center gap-4 rounded-xl px-8 py-6 transition-all hover:bg-[#F9F9F9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:hover:bg-[#2E2E2E]"
+      className="group relative flex items-center justify-center gap-4 rounded-xl border-[#F0F0F0] px-8 py-6 transition-all hover:bg-[#F9F9F9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:border-[#2E2E2E] dark:ring-offset-dark-background dark:hover:bg-[#2E2E2E]"
+      target="_blank"
       {...props}
     >
       {/* <div className="absolute left-3 top-3">{devId}</div> */}

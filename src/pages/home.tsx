@@ -11,20 +11,36 @@ import { useUserProfileQuery } from "@/hooks/api/use-user-profile-query";
 import { useDebouncedValue } from "@mantine/hooks";
 import ScrollToTopButton from "@/components/scroll-to-top-button";
 import { useColorAppearance } from "@/hooks/use-color-appearance";
+import { useQuickServices } from "@/hooks/api/use-quick-services";
 
 export default function Home() {
   useColorAppearance();
-  const { data: userProfile } = useUserProfileQuery();
+  const { data: userProfile, isLoading: isUserProfileLoading } =
+    useUserProfileQuery();
   const {
     preferences: { defaultView },
   } = usePreferences();
 
+  const isAuthorized = Boolean(userProfile) && !isUserProfileLoading;
+
   const {
     state,
+    quickFiltersDisabledOptions,
+    updateEmptyFilters,
     handleQuickFilterChange,
     handleCategoryChange,
     handleSearchQueryChange,
-  } = useFilterState({ defaultQuickFilter: defaultView });
+    handleDefaultViewChange,
+  } = useFilterState({
+    defaultQuickFilter: defaultView,
+    authorized: isAuthorized,
+  });
+
+  const { data: quickServices, isLoading: isQuickServicesLoading } =
+    useQuickServices({
+      quickFilter: state.selectedQuickFilter || undefined,
+      onServicesEmptyUpdate: (emptyFilters) => updateEmptyFilters(emptyFilters),
+    });
 
   const [debouncedSearchQuery] = useDebouncedValue(state.searchQuery, 500);
 
@@ -34,16 +50,17 @@ export default function Home() {
     <div>
       <Header
         searchQuery={state.searchQuery}
+        onDefaultViewChange={handleDefaultViewChange}
         onSearchQueryChange={handleSearchQueryChange}
       />
-      <main className="mt-8 px-6">
-        <div className="flex justify-between">
+      <main className="mt-4 px-6 md:mt-8">
+        <div className="flex flex-col justify-between md:flex-row">
           <Greeting name={userProfile?.greetingName} />
-          <div className="flex items-center gap-4">
+          <div className="hidden items-center gap-4 md:flex">
             <QuickFilters
               value={state.selectedQuickFilter}
               onChange={handleQuickFilterChange}
-              authorized={Boolean(userProfile)}
+              disabledOptions={quickFiltersDisabledOptions}
             />
             <Separator orientation="vertical" className="h-8" />
             <CategoriesFilterDialog
@@ -53,7 +70,10 @@ export default function Home() {
           </div>
         </div>
         {showQuickServices && (
-          <QuickServices filter={state.selectedQuickFilter} />
+          <QuickServices
+            services={quickServices}
+            loading={isQuickServicesLoading}
+          />
         )}
         <OtherServices
           searchQuery={debouncedSearchQuery}

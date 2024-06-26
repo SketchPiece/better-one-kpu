@@ -7,16 +7,20 @@ import { useUserProfileQuery } from "@/hooks/api/use-user-profile-query";
 
 export type QuickFiltersValue = "essentials" | "favorites" | "recents";
 
+export type QuickFiltersDisabledOptions = Partial<
+  Record<QuickFiltersValue, { label: string; disabled: boolean }>
+>;
+
 interface QuickFiltersProps {
   value?: Nullable<QuickFiltersValue>;
   onChange?: (value: QuickFiltersValue) => void;
-  authorized?: boolean;
+  disabledOptions?: QuickFiltersDisabledOptions;
 }
 
 export default function QuickFilters({
   value,
   onChange,
-  authorized,
+  disabledOptions,
 }: QuickFiltersProps) {
   const { data: userProfile, isLoading } = useUserProfileQuery();
 
@@ -46,26 +50,38 @@ export default function QuickFilters({
 
   return (
     <div className="flex items-center gap-4">
-      <button
-        type="button"
-        onClick={() => handleClick("essentials")}
-        className={cn(
-          "dark:ring-offset-dark-background inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50",
-          selectedValue === "essentials"
-            ? "border-primary bg-primary text-white"
-            : "hover:bg-[#F5F5F5] dark:border-[#3D3D3D] dark:hover:bg-[#1E1E1E]",
-        )}
+      <SimpleTooltip
+        content={disabledOptions?.essentials?.label || "Disabled"}
+        disabled={!disabledOptions?.essentials?.disabled}
       >
-        <Icons.circleCheck className="mr-2" />
-        Essentials
-      </button>
-      <SimpleTooltip content="Sign in to view favorites" disabled={authorized}>
         <button
           type="button"
-          disabled={!authorized}
-          onClick={() => authorized && handleClick("favorites")}
+          onClick={() =>
+            !disabledOptions?.essentials?.disabled && handleClick("essentials")
+          }
           className={cn(
-            "dark:ring-offset-dark-background inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50",
+            "inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 dark:ring-offset-dark-background",
+            selectedValue === "essentials"
+              ? "border-primary bg-primary text-white"
+              : "hover:bg-[#F5F5F5] dark:border-[#3D3D3D] dark:hover:bg-[#1E1E1E]",
+          )}
+        >
+          <Icons.circleCheck className="mr-2" />
+          Essentials
+        </button>
+      </SimpleTooltip>
+      <SimpleTooltip
+        content={disabledOptions?.favorites?.label || "Disabled"}
+        disabled={!disabledOptions?.favorites?.disabled}
+      >
+        <button
+          type="button"
+          disabled={disabledOptions?.favorites?.disabled}
+          onClick={() =>
+            !disabledOptions?.favorites?.disabled && handleClick("favorites")
+          }
+          className={cn(
+            "inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 dark:ring-offset-dark-background",
             selectedValue === "favorites"
               ? "border-primary bg-primary text-white"
               : "hover:bg-[#F5F5F5] dark:border-[#3D3D3D] dark:hover:bg-[#1E1E1E]",
@@ -75,13 +91,18 @@ export default function QuickFilters({
           Favorites
         </button>
       </SimpleTooltip>
-      <SimpleTooltip content="Sign in to view recents" disabled={authorized}>
+      <SimpleTooltip
+        content={disabledOptions?.recents?.label || "Disabled"}
+        disabled={!disabledOptions?.recents?.disabled}
+      >
         <button
           type="button"
-          disabled={!authorized}
-          onClick={() => authorized && handleClick("recents")}
+          disabled={disabledOptions?.recents?.disabled}
+          onClick={() =>
+            !disabledOptions?.recents?.disabled && handleClick("recents")
+          }
           className={cn(
-            "dark:ring-offset-dark-background inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50",
+            "inline-flex items-center justify-center whitespace-nowrap rounded-full border border-[#EFEFEF] px-4 py-2.5 font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 dark:ring-offset-dark-background",
             selectedValue === "recents"
               ? "border-primary bg-primary text-white"
               : "hover:bg-[#F5F5F5] dark:border-[#3D3D3D] dark:hover:bg-[#1E1E1E]",

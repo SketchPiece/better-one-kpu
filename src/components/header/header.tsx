@@ -6,14 +6,17 @@ import { useUserProfileQuery } from "@/hooks/api/use-user-profile-query";
 import { useNotificationsQuery } from "@/hooks/api/use-notifications-query";
 import NotificationsPopover from "../notification-popover";
 import OneKpuLogo from "../one-kpu-logo";
+import { QuickFiltersValue } from "../home/quick-filters";
 
 interface HeaderProps {
   searchQuery?: string;
+  onDefaultViewChange?: (value: QuickFiltersValue) => void;
   onSearchQueryChange?: (searchQuery: string) => void;
 }
 
 export default function Header({
   searchQuery,
+  onDefaultViewChange,
   onSearchQueryChange,
 }: HeaderProps) {
   const { data: notifications } = useNotificationsQuery();
@@ -55,6 +58,7 @@ export default function Header({
               username={userProfile.username}
               email={userProfile.email}
               initials={userProfile.initials}
+              onDefaultViewChange={onDefaultViewChange}
               onSignOut={handleSignOut}
             />
           </>

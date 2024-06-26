@@ -27,7 +27,7 @@ function Greeting({ name }: GreetingProps): JSX.Element {
     setGreeting(defineGreeting(name));
   }, [name]);
 
-  return <h1 className="text-4xl font-medium">{greeting}</h1>;
+  return <h1 className="text-3xl font-medium md:text-4xl">{greeting}</h1>;
 }
 
 export default Greeting;

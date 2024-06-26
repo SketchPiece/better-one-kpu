@@ -26,7 +26,7 @@ const categories = [
     name: "Academics",
     icon: GraduationCap,
     value: "academics",
-    items: 12,
+    items: 104,
   },
   { name: "Administrative", icon: Shield, value: "administrative", items: 7 },
   { name: "Admissions", icon: University, value: "admissions", items: 42 },
