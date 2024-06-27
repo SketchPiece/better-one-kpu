@@ -59,14 +59,20 @@ export default function NotificationsPopover({
             <div className="h-px w-full bg-slate-100 dark:bg-[#2E2E2E]"></div>
             <div className="max-h-[80vh] overflow-y-auto">
               <div className="my-2">
-                {notifications &&
+                {notifications && notifications.length > 0 ? (
                   notifications.map((notification) => (
                     <NotificationCard
                       key={notification.id}
                       title={notification.title}
                       content={notification.content}
                     />
-                  ))}
+                  ))
+                ) : (
+                  <div className="flex flex-col items-center justify-center gap-4 px-40 py-10">
+                    <Icons.inbox className="h-10 w-10" />
+                    <span className="text-nowrap">No notifications yet</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

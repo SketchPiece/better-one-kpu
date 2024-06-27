@@ -21,6 +21,7 @@ import {
   Sun,
   Moon,
   MonitorSmartphone,
+  Inbox,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -46,6 +47,7 @@ export const Icons = {
   moon: Moon,
   system: MonitorSmartphone,
   starOutline: Star,
+  inbox: Inbox,
   star: (props: LucideProps) => (
     <svg
       width="24"
