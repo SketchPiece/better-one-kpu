@@ -31,9 +31,6 @@ export function useQuickServices({
   });
 
   useEffect(() => {
-    if (services) {
-      console.log({ services });
-    }
     if (services)
       onServicesEmptyUpdate?.({
         essentials: services.essentials

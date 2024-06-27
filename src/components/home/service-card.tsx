@@ -13,6 +13,11 @@ interface ServiceCardProps extends ComponentProps<"a"> {
   onFavoriteChange?: (favorite: boolean) => void;
 }
 
+function isDevMode() {
+  const url = new URL(window.location.href);
+  return url.searchParams.get("dev") === "true";
+}
+
 export default function ServiceCard({
   devId,
   title,
@@ -38,7 +43,7 @@ export default function ServiceCard({
       target="_blank"
       {...props}
     >
-      {/* <div className="absolute left-3 top-3">{devId}</div> */}
+      {isDevMode() && <div className="absolute left-3 top-3">{devId}</div>}
       <img
         src={image}
         alt={title}

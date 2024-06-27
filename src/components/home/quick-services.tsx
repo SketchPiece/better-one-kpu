@@ -1,9 +1,6 @@
 import ServiceCardSkeleton from "./service-card-skeleton";
-import { QuickFiltersValue } from "./quick-filters";
-import { useQuickServices } from "@/hooks/api/use-quick-services";
 import ServiceCard from "./service-card";
 import { resolveImageUrl } from "@/lib/utils";
-import { Nullable } from "@/lib/types";
 import { useFavoriteMutation } from "@/hooks/api/use-favorite-mutation";
 import { Service } from "@/lib/kpu-api/types";
 
