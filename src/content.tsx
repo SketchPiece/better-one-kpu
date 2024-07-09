@@ -14,8 +14,6 @@ document
 
 document.body.innerHTML = injectedBody;
 const root = document.getElementById("root")!;
-// document.documentElement.classList.add("dark");
-// document.body.style.display = "block";
 document.body.classList.add("show");
 
 ReactDOM.createRoot(root).render(

@@ -93,23 +93,23 @@ function defineUniqueKey(
   return "_popular_";
 }
 
-const mockNotification: any = {
-  announcementId: 1481,
-  title: "Under Maintenance: Banner",
-  description:
-    "<p>Banner is currently undergoing maintenance from Friday, June 14 at 8:00 PM to Sunday, June 16 at 12:00 PM.</p>\n<p>The following services are not currently available</p>\n<ul>\n<li>Admin Pages (Banner 9)</li>\n<li>Banner 9 apps (Student Registration Self-Service, Student Profile, Faculty Self-Service, Employee Dashboard, BDM, Communication Management)</li>\n<li>Online Self-Service (OSS.KPU.CA)</li>\n<li>FAST (Finance, HR, WebReq, PCARD, Budget, Student, etc)</li>\n<li>Integration to and from Banner (Elevate, EPBC, Degree Works, AdAstra, Moodle, etc.)</li>\n<li>Other Online Self-Services (Adobe Creative Cloud Consent, Submit SIN, View Personalized Booklist, KPU Card Request)</li>\n</ul>",
-  subType: "TEXT",
-  containerType: "SIDEBAR",
-  dismissible: true,
-  url: null,
-  openInNewWindow: false,
-  imageUrl: null,
-  imageCaption: null,
-  disableTaskLaunch: "NO",
-  cmAnnouncement: false,
-  canEdit: false,
-  titleBarColorIndex: 0,
-};
+// const mockNotification: any = {
+//   announcementId: 1481,
+//   title: "Under Maintenance: Banner",
+//   description:
+//     "<p>Banner is currently undergoing maintenance from Friday, June 14 at 8:00 PM to Sunday, June 16 at 12:00 PM.</p>\n<p>The following services are not currently available</p>\n<ul>\n<li>Admin Pages (Banner 9)</li>\n<li>Banner 9 apps (Student Registration Self-Service, Student Profile, Faculty Self-Service, Employee Dashboard, BDM, Communication Management)</li>\n<li>Online Self-Service (OSS.KPU.CA)</li>\n<li>FAST (Finance, HR, WebReq, PCARD, Budget, Student, etc)</li>\n<li>Integration to and from Banner (Elevate, EPBC, Degree Works, AdAstra, Moodle, etc.)</li>\n<li>Other Online Self-Services (Adobe Creative Cloud Consent, Submit SIN, View Personalized Booklist, KPU Card Request)</li>\n</ul>",
+//   subType: "TEXT",
+//   containerType: "SIDEBAR",
+//   dismissible: true,
+//   url: null,
+//   openInNewWindow: false,
+//   imageUrl: null,
+//   imageCaption: null,
+//   disableTaskLaunch: "NO",
+//   cmAnnouncement: false,
+//   canEdit: false,
+//   titleBarColorIndex: 0,
+// };
 
 const kpuApi = {
   getAllServices: async ({
@@ -221,10 +221,7 @@ const kpuApi = {
       },
     ).then((res) => res.json());
 
-    const notifications: Notification[] = [
-      ...rawNotificationsData,
-      // mockNotification,
-    ]
+    const notifications: Notification[] = rawNotificationsData
       .map(mapNotification)
       .filter((notification: unknown) => notification !== null);
 

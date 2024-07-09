@@ -2,6 +2,7 @@ import { Service } from "./types";
 
 const defaultDescription =
   "Provides a wide range of resources and services to support various needs.";
+const defaultImage = "/service-images/kpu.png";
 
 const refinedServices: Record<number, Partial<Service>> = {
   6850: {
@@ -13,48 +14,65 @@ const refinedServices: Record<number, Partial<Service>> = {
   6556: {
     title: "Library",
     description:
-      "Access to books, articles, databases, and multimedia resources.",
+      "Access to books, articles, journals and other library services.",
     image: "/service-images/library.png",
   },
   6832: {
     title: "Employee Email",
-    description: defaultDescription,
+    description:
+      "Employee’s personal email to communicate with students and faculty.",
     image: "/service-images/employee-email.png",
   },
   6834: {
+    description:
+      "Your personal email to communicate and collaborate between students and faculty.",
     image: "/service-images/student-email.png",
   },
   6624: {
+    description:
+      "MAP is a tool for students to track completion of program requirements and map their route to graduation.",
     image: "/service-images/my-action-plan.png",
   },
   6961: {
     image: "/service-images/employee-dashboard.png",
   },
   6953: {
+    description:
+      "Manage your course registration, check registration history, and plan your future courses.",
     image: "/service-images/register.png",
   },
   6098: {
     image: "/service-images/maintenance.png",
   },
   6962: {
+    description:
+      "Efficiently manage your academic and administrative needs with Banner 9.",
     image: "/service-images/banner-navigator.png",
   },
   6952: {
+    description:
+      "Platform where students can register for classes, pay tuition fees, update personal information, check or post grades, etc.",
     image: "/service-images/self-service.png",
   },
   6298: {
+    description:
+      "Provides access to U-pass BC, campus-to-campus shuttle program, discounted fitness center passes, car sharing program, bicycle lockers",
     image: "/service-images/upass.png",
   },
   6749: {
     image: "/service-images/papercut.png",
   },
   6681: {
+    description:
+      "OneDrive is a cloud-based storage for Employees and Students.",
     image: "/service-images/onedrive.png",
   },
   6754: {
     image: "/service-images/taleo.png",
   },
   6954: {
+    description:
+      "Access to student’s personal information, academic history and standing, credits, GPA, and registration notices.",
     image: "/service-images/student-profile.png",
   },
   5521: {
@@ -67,6 +85,8 @@ const refinedServices: Record<number, Partial<Service>> = {
     image: "/service-images/rights.png",
   },
   6305: {
+    description:
+      "Provides information how, where, and for what price you can print.",
     image: "/service-images/printing.png",
   },
   6277: {
@@ -76,9 +96,13 @@ const refinedServices: Record<number, Partial<Service>> = {
     image: "/service-images/fees-and-costs.png",
   },
   6259: {
+    description:
+      "Easily book study rooms for a focused and quiet study environment.",
     image: "/service-images/book-room.png",
   },
   6296: {
+    description:
+      "Check key academic dates, including registration, exams, and holidays.",
     image: "/service-images/deadlines.png",
   },
   6141: {
@@ -94,6 +118,7 @@ const refinedServices: Record<number, Partial<Service>> = {
     image: "/service-images/food.png",
   },
   6948: {
+    description: "Here you can pay your tuition and outstanding fees.",
     image: "/service-images/pay.png",
   },
   6628: {
@@ -147,6 +172,8 @@ const refinedServices: Record<number, Partial<Service>> = {
     image: "/service-images/big-blue-button.png",
   },
   6951: {
+    description:
+      "Easily access your grades and monitor your academic performance.",
     image: "/service-images/check-grades.png",
   },
   6157: {
@@ -159,6 +186,8 @@ const refinedServices: Record<number, Partial<Service>> = {
     image: "/service-images/virtual-internships.png",
   },
   6945: {
+    description:
+      "Accessed by students to submit their Social Insurance Number (SIN)",
     image: "/service-images/submit-sin.png",
   },
   6663: {
@@ -186,6 +215,8 @@ const refinedServices: Record<number, Partial<Service>> = {
     image: "/service-images/marketing-resources.png",
   },
   6756: {
+    description:
+      "Find more about KPU's Temporary Medical Insurance Plan, KSA Extended Health, Dental and BC Medical Services Plan (BCMSP).",
     image: "/service-images/insurance.png",
   },
   5618: {
@@ -199,6 +230,8 @@ const refinedServices: Record<number, Partial<Service>> = {
     image: "/service-images/my-ssp.png",
   },
   6740: {
+    description:
+      "Provides details of process for ordering official transcripts from KPU, including requirements, delivery options, costs, and processing times.",
     image: "/service-images/transcript.png",
   },
   6745: {
@@ -214,6 +247,8 @@ const refinedServices: Record<number, Partial<Service>> = {
     image: "/service-images/view-transcript.png",
   },
   5715: {
+    description:
+      "Get help with admissions, registration, records, and graduation.",
     image: "/service-images/office.png",
   },
   5553: {
@@ -243,9 +278,13 @@ const refinedServices: Record<number, Partial<Service>> = {
     image: "/service-images/moodle-community.png",
   },
   6598: {
+    description:
+      "Enhance your educational experience with PebblePad. This versatile platform provides a range of resources to support your academic journey, allowing you to create, share, and reflect on your work.",
     image: "/service-images/pebblepad.png",
   },
   6162: {
+    description:
+      "Explore innovative design programs and resources at the Wilson School of Design.",
     image: "/service-images/wilson.png",
   },
   6495: {
@@ -395,7 +434,7 @@ export function refineService(service: Omit<Service, "description">): Service {
     return { ...service, description: defaultDescription, ...refinedService };
   return {
     ...service,
-    // image: defaultImage,
+    image: defaultImage,
     description: defaultDescription,
   };
 }
